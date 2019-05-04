@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">pwstore</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="name_label">名称:</string>
+    <string name="id_label">账号:</string>
+    <string name="passwd_label">密码:</string>
+    <string name="desc_label">备注:</string>
+    <string name="link_label">关联应用:</string>
+    <string name="save_label">保存</string>
+    <string name="title_activity_passwd_list">PasswdListActivity</string>
+    <string name="setup_lock_screen">请先设置锁屏密码</string>
+    <string name="register_fingerprint">
+        进入 \'设置 -> 安全 -> 指纹\' 至少录入一个指纹
+    </string>
+</resources>
