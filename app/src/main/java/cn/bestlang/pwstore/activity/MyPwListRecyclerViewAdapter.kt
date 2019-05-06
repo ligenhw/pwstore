@@ -42,8 +42,8 @@ class MyPwListRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.account
-        holder.mContentView.text = item.pw
+        holder.mNameView.text = item.name
+        holder.mAccountView.text = item.account
 
         with(holder.mView) {
             tag = item
@@ -54,11 +54,11 @@ class MyPwListRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
+        val mNameView: TextView = mView.nameTextView
+        val mAccountView: TextView = mView.accountTextView
 
         override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
+            return super.toString() + " '" + mAccountView.text + "'"
         }
     }
 }

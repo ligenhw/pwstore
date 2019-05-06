@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +19,8 @@ import cn.bestlang.pwstore.activity.dummy.DummyContent
 
 import cn.bestlang.pwstore.core.Pw
 import cn.bestlang.pwstore.core.PwStore
+import androidx.recyclerview.widget.DividerItemDecoration
+
 
 /**
  * A fragment representing a list of Items.
@@ -64,6 +69,16 @@ class PwListFragment : Fragment() {
     ): View? {
         view = inflater.inflate(R.layout.fragment_pwlist_list, container, false) as RecyclerView
 
+        if (savedInstanceState == null) {
+            setLayoutAnimation(view, R.anim.slide_and_fade_in_layout_animation)
+        }
+
+        view.addItemDecoration(
+            DividerItemDecoration(
+                activity!!, DividerItemDecoration.HORIZONTAL
+            )
+        )
+
         // Set the adapter
         with(view) {
             layoutManager = when {
@@ -73,6 +88,21 @@ class PwListFragment : Fragment() {
             adapter = MyPwListRecyclerViewAdapter(DummyContent.ITEMS, listener)
         }
         return view
+    }
+
+    fun setLayoutAnimation(view: ViewGroup,animationId: Int) {
+        view.layoutAnimationListener = object: AnimationListener {
+            override fun onAnimationStart( animation: Animation) {
+            }
+
+            override fun onAnimationEnd( animation: Animation) {
+                view.layoutAnimation = null
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+            }
+        }
+        view.layoutAnimation = AnimationUtils.loadLayoutAnimation(activity, animationId);
     }
 
     override fun onAttach(context: Context) {
