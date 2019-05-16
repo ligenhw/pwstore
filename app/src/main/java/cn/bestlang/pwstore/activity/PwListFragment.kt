@@ -12,6 +12,10 @@ import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bestlang.pwstore.R
@@ -85,8 +89,20 @@ class PwListFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = MyPwListRecyclerViewAdapter(DummyContent.ITEMS, listener)
+
+            val recyclerViewAdapter = MyPwListRecyclerViewAdapter(DummyContent.ITEMS, listener)
+            adapter = recyclerViewAdapter
+            recyclerViewAdapter.tracker = SelectionTracker.Builder<Long>(
+                "mySelection",
+                view,
+                StableIdKeyProvider(view),
+                MyDetailsLookup(view),
+                StorageStrategy.createLongStorage()
+            ).withSelectionPredicate(
+                SelectionPredicates.createSelectAnything()
+            ).build()
         }
+
         return view
     }
 
