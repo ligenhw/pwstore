@@ -1,6 +1,8 @@
 
 # pwstore
 
+[![Build Status](https://travis-ci.org/ligenhw/pwstore.svg?branch=master)](https://travis-ci.org/ligenhw/pwstore)
+
 A password store application for Android.
 
 ## 配置
