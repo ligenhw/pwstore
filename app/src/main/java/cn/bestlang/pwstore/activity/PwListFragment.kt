@@ -3,19 +3,14 @@ package cn.bestlang.pwstore.activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.selection.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bestlang.pwstore.R
@@ -40,6 +35,8 @@ class PwListFragment : Fragment() {
     private var columnCount = 1
 
     private var listener: OnListFragmentInteractionListener? = null
+
+    private lateinit var actionMode: ActionMode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +89,8 @@ class PwListFragment : Fragment() {
 
             val recyclerViewAdapter = MyPwListRecyclerViewAdapter(DummyContent.ITEMS, listener)
             adapter = recyclerViewAdapter
-            recyclerViewAdapter.tracker = SelectionTracker.Builder<Long>(
+
+            val tracker = SelectionTracker.Builder<Long>(
                 "mySelection",
                 view,
                 StableIdKeyProvider(view),
@@ -101,17 +99,51 @@ class PwListFragment : Fragment() {
             ).withSelectionPredicate(
                 SelectionPredicates.createSelectAnything()
             ).build()
+
+            recyclerViewAdapter.tracker = tracker
+
+            tracker?.addObserver(
+                object : SelectionTracker.SelectionObserver<Long>() {
+                    override fun onSelectionChanged() {
+                        super.onSelectionChanged()
+                        launchSum(tracker?.selection)
+                    }
+                })
         }
 
         return view
     }
 
-    fun setLayoutAnimation(view: ViewGroup,animationId: Int) {
-        view.layoutAnimationListener = object: AnimationListener {
-            override fun onAnimationStart( animation: Animation) {
+    private fun launchSum(selection: Selection<Long>) {
+        actionMode = activity!!.startActionMode(actionCallback)
+    }
+
+    object actionCallback : ActionMode.Callback {
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            return true
+        }
+
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            menu?.add("delete")
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            return true
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+
+        }
+
+    }
+
+    fun setLayoutAnimation(view: ViewGroup, animationId: Int) {
+        view.layoutAnimationListener = object : AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
             }
 
-            override fun onAnimationEnd( animation: Animation) {
+            override fun onAnimationEnd(animation: Animation) {
                 view.layoutAnimation = null
             }
 
