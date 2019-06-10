@@ -1,7 +1,7 @@
-
 # pwstore
 
 [![Build Status](https://travis-ci.org/ligenhw/pwstore.svg?branch=master)](https://travis-ci.org/ligenhw/pwstore)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fligenhw%2Fpwstore.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fligenhw%2Fpwstore?ref=badge_shield)
 
 A password store application for Android.
 
@@ -41,3 +41,7 @@ https://developer.android.google.cn/guide/topics/ui/layout/recyclerview
 ### CardView
 
 https://developer.android.google.cn/guide/topics/ui/layout/recyclerview
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fligenhw%2Fpwstore.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fligenhw%2Fpwstore?ref=badge_large)
